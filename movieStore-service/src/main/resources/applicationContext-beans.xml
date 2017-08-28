@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+       <context:component-scan base-package="com.sam" />
+       <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+              <property name="dataSource" ref="practiceDataSource"/>
+              <property name="configLocation" value="classpath:hibernate-product.cfg.xml"/>
+              <property name="hibernateProperties" ref="hibernateProperties"/>
+       </bean>
+
+       <bean id="practiceDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+              <property name="jdbcUrl" value="jdbc:mysql://localhost/practice?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8"/>
+              <property name="username" value="cloud"/>
+              <property name="password" value="scape"/>
+              <property name="idleMaxAgeInMinutes" value="5"/>
+              <property name="poolAvailabilityThreshold" value="0"/>
+              <property name="maxConnectionAgeInSeconds" value="600"/>
+              <property name="partitionCount" value="1"/>
+              <property name="maxConnectionsPerPartition" value="10"/>
+              <property name="minConnectionsPerPartition" value="1"/>
+              <property name="acquireIncrement" value="1"/>
+              <property name="connectionTimeoutInMs" value="10000"/>
+       </bean>
+
+
+       <util:properties id="hibernateProperties" >
+              <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+              <prop key="hibernate.query.substitutions">true 'Y', false 'N'</prop>
+              <prop key="hibernate.cache.use_second_level_cache">true</prop>
+              <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+              <prop key="hibernate.validator.apply_to_ddl">false</prop>
+              <prop key="hibernate.connection.isolation">2</prop>
+              <prop key="hibernate.show_sql">false</prop>
+              <prop key="hibernate.connection.autocommit">true</prop>
+              <prop key="hibernate.id.new_generator_mappings">false</prop>
+       </util:properties>
+
+       <!---DAO mapping -->
+       <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+
+       <bean id="personDao" class="com.sam.dao.impl.MovieDaoImpl">
+              <property name="sessionFactory" ref="sessionFactory"/>
+       </bean>
+
+
+       <!--<bean id="configUtil" class="com.sam.ConfigUtil" init-method="readProperties">
+              <constructor-arg type = "java.lang.String" value = "ps-config.properties"/>
+       </bean>-->
+
+</beans>
