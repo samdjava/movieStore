@@ -1,7 +1,7 @@
 package com.sam.dao.impl;
 
 import com.sam.dao.MovieDao;
-import com.sam.dao.hibernate.GenericDaoHibernate;
+import com.sam.generic.dao.GenericDaoHibernate;
 import com.sam.model.Movie;
 
 /**
@@ -13,6 +13,7 @@ public class MovieDaoImpl extends GenericDaoHibernate<Movie,Long> implements Mov
         super(Movie.class);
     }
 
+    public void createEntry(String filmName, String director) {
 
-
+    }
 }

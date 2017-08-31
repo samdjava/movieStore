@@ -19,7 +19,7 @@ import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
 
 /**
- * This Class is responsible for converting to and fro the Java objects into XML Clob. Used as a hibernate type class.
+ * This Class is responsible for converting to and fro the Java objects into XML Clob. Used as a dao type class.
  */
 public class CompressedXMLUserType implements UserType {
 

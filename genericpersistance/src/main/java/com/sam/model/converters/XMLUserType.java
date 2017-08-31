@@ -14,7 +14,7 @@ import java.sql.Types;
 import java.util.List;
 
 /**
- * This Class is responsible for converting to and fro the Java objects into XML Clob. Used as a hibernate type class.
+ * This Class is responsible for converting to and fro the Java objects into XML Clob. Used as a dao type class.
  */
 public class XMLUserType implements UserType {
 

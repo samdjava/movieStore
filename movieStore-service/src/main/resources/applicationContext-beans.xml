@@ -46,7 +46,8 @@
        <!---DAO mapping -->
        <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
 
-       <bean id="personDao" class="com.sam.dao.impl.MovieDaoImpl">
+       <bean id="movieDao" class="com.sam.generic.dao.GenericDaoHibernate">
+              <constructor-arg value="com.sam.model.Movie"/>
               <property name="sessionFactory" ref="sessionFactory"/>
        </bean>
 
